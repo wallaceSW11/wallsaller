@@ -1,8 +1,8 @@
 <template>
-    <header>
-        <nav>
+    <header class="navbar-header">
+        <nav class="navbar-nav">
             <!-- <div class="item"></div> -->
-            <div class="item"><h1>Pedidos</h1></div>
+            <div class="navbar-item"><h1>Pedidos</h1></div>
             <!-- <div class="item"></div> -->
         </nav>
     </header>
@@ -15,29 +15,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-    display: flex;
-    flex-direction: row;
-
-    text-align: center;
-    height: 25px;
-    width: 100%;
-
-    background-color: $primaryColor;
-}
-
-nav {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.item {
+.navbar-header {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    background-color: $primaryColor;
     color: $primaryColorFont;
-    width: 100%;
+    height: 30px;
+    font-weight: bold;
 }
 </style>

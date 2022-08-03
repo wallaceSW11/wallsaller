@@ -1,11 +1,35 @@
+.title {
+    margin: 5px;
+}
+
 h2 {
     color: $primaryColor;
     line-height: 20px;
     padding: 0;
-    margin: 5px;
+    // margin: 5px;
 }
 
 .line {
     border-bottom: 1px solid $primaryColor;
-    margin: 0 5px;
+    // margin: 0 5px;
+}
+
+.title-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.title-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primaryColor;
+    color: $primaryColorFont;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    font-weight: bold;
+    margin-right: 5px;
 }
