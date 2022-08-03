@@ -1,0 +1,51 @@
+@mixin border-style($color) {
+    background-color: $color;
+    border: 1px solid $color;
+}
+
+%transition {
+    transition: 0.3s;
+}
+
+.main-button {
+    @extend %u-centered, %u-full-width, %u-no-margin;
+    @include border-style($primaryColor);
+    @extend %u-border-radius;
+
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    @include border-style($secondaryColor);
+    @extend %transition;
+}
+
+.main-button .primaria:hover {
+    color: $secondaryColorFont;
+    @extend %transition;
+}
+
+.main-button.secundaria:hover {
+    @extend %transition;
+    @include border-style($secondaryColor);
+    color: $primaryColorFont;
+}
+
+.primaria {
+    @extend %u-full-max-width;
+    @extend %u-border-radius;
+    @extend %u-no-margin;
+    background-color: $primaryColor;
+    color: $primaryColorFont;
+    @include border-style($primaryColor);
+}
+
+.secundaria {
+    @extend %u-full-max-width;
+    @extend %u-no-margin;
+    background-color: $primaryColorFont;
+    color: $secondaryColorFont;
+    border: 1px solid $primaryColor;
+    border-radius: 4px;
+}

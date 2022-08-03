@@ -1,0 +1,11 @@
+h2 {
+    color: $primaryColor;
+    line-height: 20px;
+    padding: 0;
+    margin: 5px;
+}
+
+.line {
+    border-bottom: 1px solid $primaryColor;
+    margin: 0 5px;
+}

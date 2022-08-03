@@ -1,0 +1,21 @@
+%u-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%u-full-width {
+  width: 100%;
+}
+
+%u-no-margin {
+  margin: 0;
+}
+
+%u-full-max-width {
+  max-width: 100%;
+}
+
+%u-border-radius {
+  border-radius: 4px;
+}
