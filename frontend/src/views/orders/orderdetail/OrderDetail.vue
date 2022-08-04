@@ -57,20 +57,24 @@
                             <tr>
                                 <td>Forma de pagamento</td>
                                 <td>Valor</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>PIX</td>
                                 <td>75,00</td>
+                                <td>E X</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="card-footer">
-                <button-custom text="Salvar" />
-                <button-custom text="Cancelar" secondary />
+                <button-save-cancel
+                    @save-clicked="saveOrder"
+                    @cancel-clicked="cancelOrder"
+                />
             </div>
         </div>
 
@@ -90,11 +94,9 @@
                     </select>
                 </div>
                 <div class="modal-product-footer">
-                    <button-custom text="Salvar" />
-                    <button-custom
-                        text="Cancelar"
-                        secondary
-                        @clicked="productDetail = !productDetail"
+                    <button-save-cancel
+                        @save-clicked="addProduct"
+                        @cancel-clicked="addProduct"
                     />
                 </div>
             </div>
@@ -106,7 +108,7 @@
 import InputLabel from "@/components/inputs/input/InputLabel.vue";
 import NavBar from "@/components/navbar/NavBar.vue";
 import TitlePage from "@/components/titles/title/TitlePage.vue";
-import ButtonCustom from "@/components/buttons/buttons/button/ButtonCustom.vue";
+import ButtonSaveCancel from "@/components/buttons/savecancel/ButtonSaveCancel.vue";
 
 export default {
     name: "OrderDetail",
@@ -114,7 +116,7 @@ export default {
         InputLabel,
         NavBar,
         TitlePage,
-        ButtonCustom,
+        ButtonSaveCancel,
     },
     data() {
         return {
@@ -124,6 +126,12 @@ export default {
     methods: {
         addProduct() {
             this.productDetail = !this.productDetail;
+        },
+        saveOrder() {
+            this.$router.push({ name: "OrdersView" });
+        },
+        cancelOrder() {
+            this.$router.push({ name: "OrdersView" });
         },
     },
 };
@@ -157,9 +165,10 @@ table > tfoot {
 }
 
 .card-footer {
-    position: fixed;
-    bottom: 0;
-    width: calc(100% - 10px);
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
 }
 
 .card-products-content,
@@ -170,8 +179,6 @@ table > tfoot {
 tr {
     line-height: 25px;
 }
-
-//
 
 .modal-main {
     display: flex;
@@ -187,8 +194,6 @@ tr {
     left: 0;
     right: 0;
     bottom: 0;
-    // height: 300px;
-    // width: 600px;
     background: rgba(0, 0, 0, 0.8);
 }
 </style>

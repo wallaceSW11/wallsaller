@@ -19,15 +19,13 @@
     background-color: $primaryColorFont;
     margin-block: 10px;
     border-radius: 4px;
-    transition: transform .5s;
-    opacity: .25s;
+    transition: transform 0.5s;
+    opacity: 0.25s;
 }
 
-.hamburger.active .line:nth-child(1){
-    transform: translateY(13px)
-    rotate(45deg);
+.hamburger.active .line:nth-child(1) {
+    transform: translateY(13px) rotate(45deg);
 }
-.hamburger.active .line:nth-child(3){
-    transform: translateY(-13px)
-    rotate(-45deg);
+.hamburger.active .line:nth-child(3) {
+    transform: translateY(-13px) rotate(-45deg);
 }
