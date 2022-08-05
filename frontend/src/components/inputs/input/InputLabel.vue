@@ -33,16 +33,16 @@ export default {
             this.$refs.myInput.focus();
         }
     },
-    computed: {
-        inputValue: {
-            get: function () {
-                return this.value;
-            },
-            set: function (newValue) {
-                this.$emit("onChange", newValue);
-            },
-        },
-    },
+    // computed: {
+    //     inputValue: {
+    //         get: function () {
+    //             return this.value;
+    //         },
+    //         set: function (newValue) {
+    //             this.$emit("onChange", newValue);
+    //         },
+    //     },
+    // },
 };
 </script>
 

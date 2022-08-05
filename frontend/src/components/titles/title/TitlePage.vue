@@ -4,13 +4,7 @@
             <div class="title-text" @click="$emit('title-clicked')">
                 <h2>{{ text }}</h2>
             </div>
-            <div
-                v-if="addIcon"
-                @click="$emit('icon-clicked')"
-                class="title-icon"
-            >
-                +
-            </div>
+            <div v-if="addIcon" @click="iconClick" class="title-icon">+</div>
         </div>
 
         <div class="line"></div>
@@ -20,10 +14,16 @@
 <script>
 export default {
     name: "TitlePage",
-    emits: ["icon-clicked", "title-clicked"],
+    emits: ["clicked", "title-clicked"],
     props: {
         text: { type: String, default: "" },
-        addIcon: { type: Boolean, default: true },
+        addIcon: { type: Boolean, default: false },
+    },
+    methods: {
+        iconClick() {
+            console.log("cliquei");
+            this.$emit("clicked");
+        },
     },
 };
 </script>

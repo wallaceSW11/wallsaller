@@ -1,7 +1,7 @@
 <template>
     <div
         :class="['main-button', secondary ? 'secundaria' : 'primaria']"
-        @click="clicked"
+        @click="$emit('clicked')"
     >
         <span>{{ text }}</span>
     </div>
@@ -10,9 +10,9 @@
 <script>
 export default {
     name: "ButtonCustom",
+    emits: ["clicked"],
     props: {
         text: { type: String, default: "" },
-        callback: { type: Function, default: () => {} },
         secondary: { type: Boolean, default: false },
     },
     data() {
