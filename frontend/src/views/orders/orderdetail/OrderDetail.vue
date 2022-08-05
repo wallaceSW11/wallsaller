@@ -123,13 +123,17 @@
                         <input-label label="Idade" type="Number" />
 
                         <text-area label="Observação" v-model="orderPS" />
+
+                        <input-file label="Imagens de exemplo" v-model="pics" />
                     </div>
                 </div>
                 <div class="full">
                     <div class="modal-product-footer">
-                        <checkbox-custom text="Continuar adicionando"
-                        v-model="keepAdding" width: 100%; style="padding-bottom:
-                        5px" />
+                        <checkbox-custom
+                            text="Continuar adicionando"
+                            v-model="keepAdding"
+                            style="padding-bottom: 5px"
+                        />
                         <button-save-cancel
                             @save-clicked="addProduct"
                             @cancel-clicked="addProduct"
@@ -149,6 +153,7 @@ import ButtonSaveCancel from "@/components/buttons/savecancel/ButtonSaveCancel.v
 import SelectCustom from "@/components/select/select/SelectCustom.vue";
 import CheckboxCustom from "@/components/inputs/checkbox/CheckboxCustom.vue";
 import TextArea from "@/components/inputs/textarea/TextArea.vue";
+import InputFile from "@/components/inputs/inputfile/InputFile.vue";
 
 export default {
     name: "OrderDetail",
@@ -160,12 +165,14 @@ export default {
         SelectCustom,
         CheckboxCustom,
         TextArea,
+        InputFile,
     },
     data() {
         return {
-            productDetail: false,
+            productDetail: true,
             keepAdding: true,
             orderPS: "",
+            pics: [],
             internselectData: [
                 {
                     value: "01topo",
@@ -212,7 +219,11 @@ export default {
     },
     methods: {
         addProduct() {
-            this.productDetail = !this.productDetail;
+            console.log(this.pics);
+
+            if (!this.keepAdding) {
+                this.productDetail = !this.productDetail;
+            }
         },
         saveOrder() {
             this.$router.push({ name: "OrdersView" });
@@ -220,12 +231,12 @@ export default {
         cancelOrder() {
             this.$router.push({ name: "OrdersView" });
         },
-        // productSelected(prod) {
-        //     console.log(prod);
-        // },
-        // sizeSelected(prod) {
-        //     console.log(prod);
-        // },
+        productSelected(prod) {
+            console.log(prod);
+        },
+        sizeSelected(prod) {
+            console.log(prod);
+        },
     },
 };
 </script>
@@ -262,9 +273,12 @@ table > tfoot {
 
 .card-products-content,
 .card-payment-content,
-.card-header-content,
-.modal-product-content {
+.card-header-content {
     margin: 10px;
+}
+
+.modal-product-content {
+    margin: 0 10px;
 }
 
 tr {
@@ -292,7 +306,6 @@ tr {
     justify-content: space-between;
 }
 
-.modal-product-content,
 .modal-product-header {
     padding: 5px;
 }

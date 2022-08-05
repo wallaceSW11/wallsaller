@@ -31,4 +31,16 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./style.scss" scoped />
+<style lang="scss" scoped>
+.check {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.check label {
+    cursor: pointer;
+}
+</style>
