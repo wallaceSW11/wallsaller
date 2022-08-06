@@ -7,7 +7,7 @@
             <button-custom
                 text="Cancelar"
                 secondary
-                @click="$emit('save-clicked')"
+                @click="$emit('cancel-clicked')"
             />
         </div>
     </div>

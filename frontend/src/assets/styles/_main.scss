@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 1px solid $primaryColor;
+    font-weight: bold;
+    font-size: 16px;
+}
+table > tfoot {
+    border-top: 1px solid $primaryColor;
+}
+
+tr {
+    line-height: 25px;
+}
+
+// td {
+//     min-width: 25px;
+// }
+
+.text-right {
+    text-align: right;
+    padding-right: 2px;
+}
+
+.text-center {
+    text-align: center;
+}

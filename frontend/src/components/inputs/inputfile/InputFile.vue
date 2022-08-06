@@ -17,7 +17,7 @@ export default {
     emits: ["update:modelValue"],
     props: {
         label: { type: String, default: "" },
-        modelValue: { type: Array },
+        modelValue: { type: FileList },
     },
     data() {
         return {
@@ -29,7 +29,6 @@ export default {
             this.internValue = newValue;
         },
         internValue(newValue) {
-            console.log(newValue);
             this.$emit("update:modelValue", newValue);
         },
     },
@@ -42,4 +41,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.inputfile-main {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+}
+
+label {
+    line-height: 25px;
+}
+</style>

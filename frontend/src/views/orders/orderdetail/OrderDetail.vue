@@ -7,8 +7,15 @@
                     <title-page text="Dados" />
                 </div>
                 <div class="card-header-content">
-                    <input-label label="Cliente:" />
-                    <input-label label="Data entrega:" type="date" />
+                    <input-label
+                        label="Cliente:"
+                        v-model="orderDetail.client"
+                    />
+                    <input-label
+                        label="Data entrega:"
+                        type="date"
+                        v-model="orderDetail.deadline"
+                    />
                 </div>
             </div>
             <div class="card-products">
@@ -24,29 +31,30 @@
                         <thead>
                             <tr>
                                 <td>Item</td>
-                                <td>Qt</td>
-                                <td>Total</td>
+                                <td class="text-center">Qt</td>
+                                <td class="text-center">Total</td>
                                 <td></td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Topo especial</td>
-                                <td>1</td>
-                                <td>30,00</td>
-                                <td>E X</td>
-                            </tr>
-                            <tr>
-                                <td>Caixa explosão</td>
-                                <td>1</td>
-                                <td>45,00</td>
-                                <td>E X</td>
+                            <tr
+                                v-for="(item, index) in orderDetail.items"
+                                :key="index"
+                            >
+                                <td class="text-limited">
+                                    {{ item.description }}
+                                </td>
+                                <td class="text-right">{{ item.quantity }}</td>
+                                <td class="text-right">{{ item.price }}</td>
+                                <td class="table-action">E X</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="2">Total</td>
-                                <td>75,00</td>
+                                <td class="text-right">
+                                    {{ orderDetail.totalOrder }}
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -61,17 +69,26 @@
                         <thead>
                             <tr>
                                 <td>Forma de pagamento</td>
-                                <td>Valor</td>
+                                <td class="text-center">Valor</td>
                                 <td></td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>PIX</td>
-                                <td>75,00</td>
-                                <td>E X</td>
+                            <tr
+                                v-for="(payment, index) in orderDetail.payments"
+                                :key="index"
+                            >
+                                <td>{{ payment.description }}</td>
+                                <td class="text-right">{{ payment.value }}</td>
+                                <td class="table-action">E X</td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td class="text-right">80,00</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -108,6 +125,11 @@
                             label="Tema"
                             defaultOption="Selecione o tema"
                             :options="theme"
+                            @optionSelected="
+                                (val) => {
+                                    product.theme = val;
+                                }
+                            "
                         />
 
                         <select-custom
@@ -117,12 +139,20 @@
                             @optionSelected="sizeSelected"
                         />
 
-                        <input-label label="Quantidade" type="Number" />
-                        <input-label label="Nome" />
+                        <input-label
+                            label="Quantidade"
+                            type="Number"
+                            v-model="product.quantity"
+                        />
+                        <input-label label="Nome" v-model="product.name" />
 
-                        <input-label label="Idade" type="Number" />
+                        <input-label
+                            label="Idade"
+                            type="Number"
+                            v-model="product.age"
+                        />
 
-                        <text-area label="Observação" v-model="orderPS" />
+                        <text-area label="Observação" v-model="product.note" />
 
                         <input-file label="Imagens de exemplo" v-model="pics" />
                     </div>
@@ -135,8 +165,8 @@
                             style="padding-bottom: 5px"
                         />
                         <button-save-cancel
-                            @save-clicked="addProduct"
-                            @cancel-clicked="addProduct"
+                            @save-clicked="saveProduct"
+                            @cancel-clicked="productDetail = false"
                         />
                     </div>
                 </div>
@@ -154,6 +184,9 @@ import SelectCustom from "@/components/select/select/SelectCustom.vue";
 import CheckboxCustom from "@/components/inputs/checkbox/CheckboxCustom.vue";
 import TextArea from "@/components/inputs/textarea/TextArea.vue";
 import InputFile from "@/components/inputs/inputfile/InputFile.vue";
+import orderService from "@/services/order-service";
+import OrderDetail from "@/models/OrderDetail";
+import Item from "@/models/Item";
 
 export default {
     name: "OrderDetail",
@@ -169,10 +202,15 @@ export default {
     },
     data() {
         return {
-            productDetail: true,
+            orderDetail: new OrderDetail(),
+            productDetail: false,
             keepAdding: true,
             orderPS: "",
-            pics: [],
+            pics: null,
+            product: new Item(),
+            isNewProduct: false,
+            isEditing: false,
+            isViewing: false,
             internselectData: [
                 {
                     value: "01topo",
@@ -217,12 +255,55 @@ export default {
             ],
         };
     },
-    methods: {
-        addProduct() {
-            console.log(this.pics);
+    created() {
+        this.getOrder();
+    },
 
-            if (!this.keepAdding) {
+    methods: {
+        getOrder() {
+            let idOrder = this.$route.params.id;
+            if (!idOrder) return;
+
+            this.orderDetail = new OrderDetail(orderService.getById());
+        },
+
+        addProduct() {
+            this.productDetail = !this.productDetail;
+            this.isNewProduct = true;
+        },
+        saveProduct() {
+            // se o produto for válido
+
+            console.log(this.product);
+            console.log(this.isNewProduct);
+
+            if (this.isNewProduct) {
+                this.product.description = this.internselectData.find(
+                    (des) => des.value === this.product.id
+                ).text;
+
+                console.log(this.product);
+                this.orderDetail.items.push(this.product);
+
+                console.log("depois do push");
+
+                console.log(this.keepAdding);
+
+                if (this.keepAdding) {
+                    this.product = new Item();
+
+                    this.productDetail = false;
+                    return;
+                    // setTimeout(function () {
+                    //     this.productDetail = true;
+                    //     return;
+                    // }, 1000);
+
+                    // this.productSelected = () => {};
+                }
+
                 this.productDetail = !this.productDetail;
+                return;
             }
         },
         saveOrder() {
@@ -232,16 +313,21 @@ export default {
             this.$router.push({ name: "OrdersView" });
         },
         productSelected(prod) {
-            console.log(prod);
+            this.product.id = prod;
         },
         sizeSelected(prod) {
-            console.log(prod);
+            this.product.size = prod;
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
+.main {
+    overflow: auto;
+    padding-bottom: 70px;
+}
+
 .card .card-header {
     display: flex;
     flex-direction: column;
@@ -251,38 +337,36 @@ export default {
     margin: 5px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-thead {
-    border-bottom: 1px solid $primaryColor;
-    font-weight: bold;
-    font-size: 16px;
-}
-table > tfoot {
-    border-top: 1px solid $primaryColor;
-}
-
-.card-footer {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-}
-
 .card-products-content,
 .card-payment-content,
 .card-header-content {
-    margin: 10px;
+    margin: 5px 10px;
 }
 
 .modal-product-content {
     margin: 0 10px;
 }
 
-tr {
-    line-height: 25px;
+.card-footer {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    background-color: #fff;
+}
+
+.text-limited {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.table-action {
+    // display: flex;
+    // flex-direction: row;
+    text-align: center;
+    width: 40px;
 }
 
 // modal styles
