@@ -8,6 +8,7 @@
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="myInput"
+            :disabled="isDisabled"
         />
     </div>
 </template>
@@ -22,6 +23,7 @@ export default {
         placeHolder: { type: String, default: "" },
         modelValue: { type: String, default: "" },
         autoFocus: { type: Boolean, default: false },
+        isDisabled: { type: Boolean, default: false },
     },
     emits: ["update:modelValue"],
     data() {

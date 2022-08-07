@@ -19,7 +19,6 @@
 
 <script>
 import NavBar from "@/components/navbar/NavBar.vue";
-// import OrdersCard from "@/components/cards/orderscard/OrdersCard";
 import Orders from "@/models/Orders";
 import orderService from "@/services/order-service";
 
@@ -27,7 +26,6 @@ export default {
     name: "OrdersView",
     components: {
         NavBar,
-        // OrdersCard,
     },
     data() {
         return {

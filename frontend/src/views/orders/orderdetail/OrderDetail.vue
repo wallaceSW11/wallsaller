@@ -119,6 +119,12 @@
                             @optionSelected="productSelected"
                         />
 
+                        <input-label
+                            label="Preço"
+                            v-model="product.price"
+                            isDisabled
+                        />
+
                         <!-- // ifs da vida -->
 
                         <select-custom
@@ -141,7 +147,7 @@
 
                         <input-label
                             label="Quantidade"
-                            type="Number"
+                            type="number"
                             v-model="product.quantity"
                         />
                         <input-label label="Nome" v-model="product.name" />
@@ -215,14 +221,17 @@ export default {
                 {
                     value: "01topo",
                     text: "Topo Especial",
+                    price: "30,00",
                 },
                 {
                     value: "02topo",
                     text: "Topo Especial - Nome e Idade",
+                    price: "25,00",
                 },
                 {
                     value: "03caixa",
                     text: "Caixa explosão",
+                    price: "45,00",
                 },
             ],
             sizes: [
@@ -282,6 +291,10 @@ export default {
                     (des) => des.value === this.product.id
                 ).text;
 
+                // this.product.price = this.internselectData.find(
+                //     (des) => des.value === this.product.id
+                // ).price;
+
                 console.log(this.product);
                 this.orderDetail.items.push(this.product);
 
@@ -314,6 +327,9 @@ export default {
         },
         productSelected(prod) {
             this.product.id = prod;
+            this.product.price = this.internselectData.find(
+                (des) => des.value === this.product.id
+            ).price;
         },
         sizeSelected(prod) {
             this.product.size = prod;
