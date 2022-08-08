@@ -2,22 +2,22 @@ const Orders = [
     {
         id: "1",
         user: "doucuras",
-        client: "Fulado de tal",
-        deadline: "2022-12-28",
+        client: "Fulano de tal",
+        deadline: "15/09/2022",
         status: "Aguardando aprovação da turquesa",
     },
     {
         id: "2",
         user: "doucuras",
         client: "Ciclano de tal",
-        deadline: "2022-11-15",
+        deadline: "21/09/2022",
         status: "Aguardando aprovação da arte",
     },
     {
         id: "3",
         user: "doucuras",
         client: "Rodnelson Werickson",
-        deadline: "2022-8-22",
+        deadline: "10/10/2022",
         status: "Aprovado",
     },
 ];

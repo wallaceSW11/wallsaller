@@ -3,10 +3,11 @@
         <nav-bar />
         <div class="card" v-for="order in ordersData" :key="order.id">
             <div class="card-status">
-                <span>Status: </span><strong>{{ order.status }}</strong>
+                <!-- <span>Status: </span><strong>{{ order.status }}</strong> -->
+                <span>Criado em: 01/08/2022</span>
             </div>
             <div class="card-content">
-                <span>Cliente: {{ order.client }}</span>
+                <span>Descrição: {{ order.client }}</span>
                 <span>Previsão de entrega: {{ order.deadline }}</span>
             </div>
             <div class="card-footer" @click="goToDetail(order.id)">
@@ -14,6 +15,8 @@
                 <div class="card-action-icon">></div>
             </div>
         </div>
+
+        <float-button @clicked="$router.push({ name: 'OrderDetailView' })" />
     </div>
 </template>
 
@@ -21,11 +24,13 @@
 import NavBar from "@/components/navbar/NavBar.vue";
 import Orders from "@/models/Orders";
 import orderService from "@/services/order-service";
+import FloatButton from "@/components/buttons/floatbutton/FloatButton.vue";
 
 export default {
     name: "OrdersView",
     components: {
         NavBar,
+        FloatButton,
     },
     data() {
         return {
@@ -54,10 +59,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .main {
+//     display: flex;
+//     flex-direction: column;
+// }
+
 .card {
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    // min-width: 300px;
     margin: auto;
     border: 1px solid $primaryColor;
     border-radius: 5px;
@@ -83,9 +93,12 @@ export default {
     padding: 5px;
     background-color: $primaryColor;
     color: $primaryColorFont;
+    border-radius: 0 0 2px 2px;
+    border: 1px solid $primaryColor;
+    max-width: 100%;
 }
 
-.card-status,
+// .card-status,
 .card-content span {
     line-height: 20px;
 }

@@ -1,22 +1,15 @@
 <template>
-    <div class="float-button" @click="callback"><span>+</span></div>
-
+    <div class="float-button" @click="$emit('clicked')"><span>+</span></div>
 </template>
 
 <script>
 export default {
-    name: 'Float-Button',
-    props: {
-        callback: { type: Function, default: () => {}}
-    },
+    name: "Float-Button",
+    emits: ["clicked"],
     data() {
-        return {
-
-        }
+        return {};
     },
-
-
-}
+};
 </script>
 
 <style lang="scss" src="./style.scss" scoped />

@@ -5,10 +5,13 @@
                 Turquesa <br />
                 Ateliê criativo
             </div>
-            <div class="card-form">
-                <input-label label="E-mail" />
-                <input-label label="Senha" />
-            </div>
+            <form action="#">
+                <div class="card-form">
+                    <input-label label="Usuário" />
+                    <input-label label="Senha" type="password" />
+                </div>
+            </form>
+
             <div class="card-footer">
                 <button-custom text="Acessar" @clicked="access" />
                 <br />

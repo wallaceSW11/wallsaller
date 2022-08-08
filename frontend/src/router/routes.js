@@ -1,7 +1,7 @@
 import HomeView from "@/views/home/HomeView";
 import LoginView from "@/views/login/LoginView";
 import OrdersView from "@/views/orders/orders/OrdersView";
-import OrderDetailView from "@/views/orders/orderdetail/OrderDetail";
+import OrderDetailView from "@/views/orders/orderdetail/OrderDetailView";
 import RegistrationView from "@/views/registration/RegistrationView";
 
 const routes = [
@@ -31,7 +31,8 @@ const routes = [
         meta: { requiredAuth: false },
     },
     {
-        path: "/order-detail/:id",
+        path: "/order-detail/",
+        params: ":id",
         name: "OrderDetailView",
         component: OrderDetailView,
         meta: { requiredAuth: false },

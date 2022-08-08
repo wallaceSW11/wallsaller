@@ -15,7 +15,15 @@ function getById() {
     // });
 }
 
+function create(order) {
+    data.Orders.push(order);
+    // return new Promise((resolve, reject) => {
+    //     return data.OrderDetail;
+    // });
+}
+
 export default {
     getAll,
     getById,
+    create,
 };

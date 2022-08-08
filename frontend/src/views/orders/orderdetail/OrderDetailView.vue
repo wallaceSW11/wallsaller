@@ -8,14 +8,15 @@
                 </div>
                 <div class="card-header-content">
                     <input-label
-                        label="Cliente:"
+                        label="Descrição"
                         v-model="orderDetail.client"
+                        :autoFocus="!this.$route.params.id"
                     />
-                    <input-label
+                    <!-- <input-label
                         label="Data entrega:"
                         type="date"
                         v-model="orderDetail.deadline"
-                    />
+                    /> -->
                 </div>
             </div>
             <div class="card-products">
@@ -30,9 +31,11 @@
                     <table class="product-table">
                         <thead>
                             <tr>
-                                <td>Item</td>
+                                <td>Descrição</td>
                                 <td class="text-center">Qt</td>
-                                <td class="text-center">Total</td>
+                                <td v-if="approved" class="text-center">
+                                    Total
+                                </td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -45,11 +48,13 @@
                                     {{ item.description }}
                                 </td>
                                 <td class="text-right">{{ item.quantity }}</td>
-                                <td class="text-right">{{ item.price }}</td>
+                                <td v-if="approved" class="text-right">
+                                    {{ item.price }}
+                                </td>
                                 <td class="table-action">E X</td>
                             </tr>
                         </tbody>
-                        <tfoot>
+                        <tfoot v-if="false">
                             <tr>
                                 <td colspan="2">Total</td>
                                 <td class="text-right">
@@ -60,7 +65,7 @@
                     </table>
                 </div>
             </div>
-            <div class="card-payment">
+            <div v-if="approved" class="card-payment">
                 <div class="card-payment-title">
                     <title-page text="Pagamento" />
                 </div>
@@ -119,24 +124,7 @@
                             @optionSelected="productSelected"
                         />
 
-                        <input-label
-                            label="Preço"
-                            v-model="product.price"
-                            isDisabled
-                        />
-
                         <!-- // ifs da vida -->
-
-                        <select-custom
-                            label="Tema"
-                            defaultOption="Selecione o tema"
-                            :options="theme"
-                            @optionSelected="
-                                (val) => {
-                                    product.theme = val;
-                                }
-                            "
-                        />
 
                         <select-custom
                             label="Tamanho do bolo"
@@ -145,11 +133,15 @@
                             @optionSelected="sizeSelected"
                         />
 
-                        <input-label
+                        <select-custom
                             label="Quantidade"
-                            type="number"
-                            v-model="product.quantity"
+                            defaultOption="Selecione a quantidade"
+                            :options="quantities"
+                            @optionSelected="(val) => (product.quantity = val)"
                         />
+
+                        <input-label label="Tema" v-model="product.theme" />
+
                         <input-label label="Nome" v-model="product.name" />
 
                         <input-label
@@ -166,6 +158,7 @@
                 <div class="full">
                     <div class="modal-product-footer">
                         <checkbox-custom
+                            v-if="false"
                             text="Continuar adicionando"
                             v-model="keepAdding"
                             style="padding-bottom: 5px"
@@ -193,9 +186,10 @@ import InputFile from "@/components/inputs/inputfile/InputFile.vue";
 import orderService from "@/services/order-service";
 import OrderDetail from "@/models/OrderDetail";
 import Item from "@/models/Item";
+import Orders from "@/models/Orders";
 
 export default {
-    name: "OrderDetail",
+    name: "OrderDetailView",
     components: {
         InputLabel,
         NavBar,
@@ -217,6 +211,8 @@ export default {
             isNewProduct: false,
             isEditing: false,
             isViewing: false,
+            isNew: false,
+            approved: false,
             internselectData: [
                 {
                     value: "01topo",
@@ -225,7 +221,7 @@ export default {
                 },
                 {
                     value: "02topo",
-                    text: "Topo Especial - Nome e Idade",
+                    text: "Topo Especial - Escrita",
                     price: "25,00",
                 },
                 {
@@ -247,6 +243,14 @@ export default {
                     value: "03",
                     text: "20 cm",
                 },
+                {
+                    value: "04",
+                    text: "25 cm",
+                },
+                {
+                    value: "05",
+                    text: "30 cm",
+                },
             ],
             theme: [
                 {
@@ -262,9 +266,56 @@ export default {
                     text: "Minicraft",
                 },
             ],
+            quantities: [
+                {
+                    value: "1",
+                    text: "1",
+                },
+                {
+                    value: "2",
+                    text: "2",
+                },
+                {
+                    value: "3",
+                    text: "3",
+                },
+                {
+                    value: "4",
+                    text: "4",
+                },
+                {
+                    value: "5",
+                    text: "5",
+                },
+                {
+                    value: "6",
+                    text: "6",
+                },
+                {
+                    value: "7",
+                    text: "7",
+                },
+                {
+                    value: "8",
+                    text: "8",
+                },
+                {
+                    value: "9",
+                    text: "9",
+                },
+                {
+                    value: "10",
+                    text: "10",
+                },
+            ],
         };
     },
     created() {
+        let idOrder = this.$route.params.id;
+        this.isNew = idOrder == null;
+
+        if (!idOrder) return;
+
         this.getOrder();
     },
 
@@ -320,6 +371,20 @@ export default {
             }
         },
         saveOrder() {
+            // salvar a ordem
+
+            if (this.isNew) {
+                orderService.create(
+                    new Orders({
+                        id: "1",
+                        user: "doucuras",
+                        client: this.orderDetail.client,
+                        deadline: "2022-12-28",
+                        status: "Aguardando aprovação da turquesa",
+                    })
+                );
+            }
+
             this.$router.push({ name: "OrdersView" });
         },
         cancelOrder() {
