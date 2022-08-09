@@ -30,30 +30,11 @@ export default {
         options: {
             type: Object,
         },
+        modelValue: { type: String },
     },
     data() {
         return {
-            selectData: {
-                type: Object,
-                default() {
-                    return {};
-                },
-            },
-            selected: this.defaultOption,
-            internselectData: [
-                {
-                    value: "01topo",
-                    text: "Topo Especial",
-                },
-                {
-                    value: "02topo",
-                    text: "Topo Especial - Nome e Idade",
-                },
-                {
-                    value: "03caixa",
-                    text: "Caixa explosão",
-                },
-            ],
+            selected: this.modelValue ?? this.defaultOption,
         };
     },
     watch: {

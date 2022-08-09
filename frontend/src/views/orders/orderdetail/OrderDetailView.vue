@@ -51,7 +51,9 @@
                                 <td v-if="approved" class="text-right">
                                     {{ item.price }}
                                 </td>
-                                <td class="table-action">E X</td>
+                                <td class="table-action">
+                                    <div @click="editProduct(item)">E X</div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot v-if="false">
@@ -85,7 +87,9 @@
                             >
                                 <td>{{ payment.description }}</td>
                                 <td class="text-right">{{ payment.value }}</td>
-                                <td class="table-action">E X</td>
+                                <td class="table-action">
+                                    <div @click="editProduct">E X</div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -105,7 +109,7 @@
             </div>
         </div>
 
-        <div v-if="productDetail" class="modal-product">
+        <div v-if="productDetail" :key="rerender" class="modal-product">
             <div class="modal-main">
                 <div class="full">
                     <div class="modal-product-header">
@@ -120,7 +124,8 @@
                         <select-custom
                             label="Produto"
                             defaultOption="Selecione o produto"
-                            :options="internselectData"
+                            :options="avaliableProducts"
+                            v-model="product.id"
                             @optionSelected="productSelected"
                         />
 
@@ -130,21 +135,28 @@
                             label="Tamanho do bolo"
                             defaultOption="Selecione o tamanho do bolo"
                             :options="sizes"
+                            v-model="product.size"
                             @optionSelected="sizeSelected"
                         />
 
-                        <select-custom
+                        <!-- <select-custom
                             label="Quantidade"
                             defaultOption="Selecione a quantidade"
                             :options="quantities"
+                            v-model="product.quantity"
                             @optionSelected="(val) => (product.quantity = val)"
-                        />
+                        /> -->
 
                         <input-label label="Tema" v-model="product.theme" />
 
-                        <input-label label="Nome" v-model="product.name" />
+                        <input-label
+                            v-if="product.type == 'topo'"
+                            label="Nome"
+                            v-model="product.name"
+                        />
 
                         <input-label
+                            v-if="product.type == 'topo'"
                             label="Idade"
                             type="Number"
                             v-model="product.age"
@@ -158,14 +170,13 @@
                 <div class="full">
                     <div class="modal-product-footer">
                         <checkbox-custom
-                            v-if="false"
                             text="Continuar adicionando"
                             v-model="keepAdding"
                             style="padding-bottom: 5px"
                         />
                         <button-save-cancel
                             @save-clicked="saveProduct"
-                            @cancel-clicked="productDetail = false"
+                            @cancel-clicked="cancelProduct"
                         />
                     </div>
                 </div>
@@ -187,6 +198,7 @@ import orderService from "@/services/order-service";
 import OrderDetail from "@/models/OrderDetail";
 import Item from "@/models/Item";
 import Orders from "@/models/Orders";
+import data from "@/services/data.js";
 
 export default {
     name: "OrderDetailView",
@@ -213,101 +225,11 @@ export default {
             isViewing: false,
             isNew: false,
             approved: false,
-            internselectData: [
-                {
-                    value: "01topo",
-                    text: "Topo Especial",
-                    price: "30,00",
-                },
-                {
-                    value: "02topo",
-                    text: "Topo Especial - Escrita",
-                    price: "25,00",
-                },
-                {
-                    value: "03caixa",
-                    text: "Caixa explosão",
-                    price: "45,00",
-                },
-            ],
-            sizes: [
-                {
-                    value: "01",
-                    text: "10 cm",
-                },
-                {
-                    value: "02",
-                    text: "15 cm",
-                },
-                {
-                    value: "03",
-                    text: "20 cm",
-                },
-                {
-                    value: "04",
-                    text: "25 cm",
-                },
-                {
-                    value: "05",
-                    text: "30 cm",
-                },
-            ],
-            theme: [
-                {
-                    value: "01",
-                    text: "Marsha",
-                },
-                {
-                    value: "02",
-                    text: "Mundo bita",
-                },
-                {
-                    value: "03",
-                    text: "Minicraft",
-                },
-            ],
-            quantities: [
-                {
-                    value: "1",
-                    text: "1",
-                },
-                {
-                    value: "2",
-                    text: "2",
-                },
-                {
-                    value: "3",
-                    text: "3",
-                },
-                {
-                    value: "4",
-                    text: "4",
-                },
-                {
-                    value: "5",
-                    text: "5",
-                },
-                {
-                    value: "6",
-                    text: "6",
-                },
-                {
-                    value: "7",
-                    text: "7",
-                },
-                {
-                    value: "8",
-                    text: "8",
-                },
-                {
-                    value: "9",
-                    text: "9",
-                },
-                {
-                    value: "10",
-                    text: "10",
-                },
-            ],
+            sizes: data.CakesSize,
+            avaliableProducts: data.AvaliableProducts,
+            quantities: data.Quantities,
+            rerender: 0,
+            // zero: "01topo",
         };
     },
     created() {
@@ -334,41 +256,34 @@ export default {
         saveProduct() {
             // se o produto for válido
 
-            console.log(this.product);
-            console.log(this.isNewProduct);
-
             if (this.isNewProduct) {
-                this.product.description = this.internselectData.find(
+                this.product.description = this.avaliableProducts.find(
                     (des) => des.value === this.product.id
                 ).text;
 
-                // this.product.price = this.internselectData.find(
-                //     (des) => des.value === this.product.id
-                // ).price;
-
-                console.log(this.product);
                 this.orderDetail.items.push(this.product);
-
-                console.log("depois do push");
-
-                console.log(this.keepAdding);
 
                 if (this.keepAdding) {
                     this.product = new Item();
-
-                    this.productDetail = false;
+                    this.rerender += 1;
                     return;
-                    // setTimeout(function () {
-                    //     this.productDetail = true;
-                    //     return;
-                    // }, 1000);
-
-                    // this.productSelected = () => {};
                 }
 
                 this.productDetail = !this.productDetail;
                 return;
             }
+
+            this.productDetail = !this.productDetail;
+        },
+        cancelProduct() {
+            this.isNewProduct = false;
+            this.productDetail = !this.productDetail;
+        },
+        editProduct(item) {
+            this.isNewProduct = false;
+            this.productDetail = !this.productDetail;
+            this.product = item;
+            // console.log(item);
         },
         saveOrder() {
             // salvar a ordem
@@ -392,9 +307,10 @@ export default {
         },
         productSelected(prod) {
             this.product.id = prod;
-            this.product.price = this.internselectData.find(
+
+            this.product.type = this.avaliableProducts.find(
                 (des) => des.value === this.product.id
-            ).price;
+            ).type;
         },
         sizeSelected(prod) {
             this.product.size = prod;

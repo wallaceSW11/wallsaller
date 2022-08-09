@@ -6,20 +6,20 @@ const Orders = [
         deadline: "15/09/2022",
         status: "Aguardando aprovação da turquesa",
     },
-    {
-        id: "2",
-        user: "doucuras",
-        client: "Ciclano de tal",
-        deadline: "21/09/2022",
-        status: "Aguardando aprovação da arte",
-    },
-    {
-        id: "3",
-        user: "doucuras",
-        client: "Rodnelson Werickson",
-        deadline: "10/10/2022",
-        status: "Aprovado",
-    },
+    // {
+    //     id: "2",
+    //     user: "doucuras",
+    //     client: "Ciclano de tal",
+    //     deadline: "21/09/2022",
+    //     status: "Aguardando aprovação da arte",
+    // },
+    // {
+    //     id: "3",
+    //     user: "doucuras",
+    //     client: "Rodnelson Werickson",
+    //     deadline: "10/10/2022",
+    //     status: "Aprovado",
+    // },
 ];
 
 const OrderDetail = {
@@ -285,7 +285,97 @@ const OrderDetail = {
     ],
 };
 
+const Quantities = [
+    {
+        value: "1",
+        text: "1",
+    },
+    {
+        value: "2",
+        text: "2",
+    },
+    {
+        value: "3",
+        text: "3",
+    },
+    {
+        value: "4",
+        text: "4",
+    },
+    {
+        value: "5",
+        text: "5",
+    },
+    {
+        value: "6",
+        text: "6",
+    },
+    {
+        value: "7",
+        text: "7",
+    },
+    {
+        value: "8",
+        text: "8",
+    },
+    {
+        value: "9",
+        text: "9",
+    },
+    {
+        value: "10",
+        text: "10",
+    },
+];
+
+const AvaliableProducts = [
+    {
+        value: "01topo",
+        text: "Topo Especial",
+        price: "30,00",
+        type: "topo",
+    },
+    {
+        value: "02topo",
+        text: "Topo Especial - Escrita",
+        price: "25,00",
+        type: "topo",
+    },
+    {
+        value: "03caixa",
+        text: "Caixa explosão",
+        price: "45,00",
+        type: "caixa",
+    },
+];
+
+const CakesSize = [
+    {
+        value: "01",
+        text: "10 cm",
+    },
+    {
+        value: "02",
+        text: "15 cm",
+    },
+    {
+        value: "03",
+        text: "20 cm",
+    },
+    {
+        value: "04",
+        text: "25 cm",
+    },
+    {
+        value: "05",
+        text: "30 cm",
+    },
+];
+
 export default {
     Orders,
     OrderDetail,
+    AvaliableProducts,
+    CakesSize,
+    Quantities,
 };
