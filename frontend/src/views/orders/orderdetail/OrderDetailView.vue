@@ -122,7 +122,7 @@
                     </div>
                     <div class="modal-product-content">
                         Produtos:
-                        <my-carousel />
+                        <product-carousel />
 
                         <!-- <template>
                         <carousel :items-to-show="1.5">
@@ -225,7 +225,7 @@ import data from "@/services/data.js";
 
 // import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
-import MyCarousel from "@/components/carousel/MyCarousel.vue";
+import ProductCarousel from "@/components/carousel/ProductCarousel.vue";
 
 export default {
     name: "OrderDetailView",
@@ -238,7 +238,7 @@ export default {
         CheckboxCustom,
         TextArea,
         InputFile,
-        MyCarousel,
+        ProductCarousel,
         // Carousel,
         // Slide,
         // Pagination,
@@ -432,25 +432,25 @@ export default {
     margin: 10px;
 }
 
-.carousel {
-    display: flex;
-    overflow-x: scroll;
-    padding: 24px;
-    width: 300px;
-    scroll-snap-type: x-mandatory;
-    scroll-padding: 24px;
-    border-radius: 8px;
-    gap: 12px;
-}
+// .carousel {
+//     display: flex;
+//     overflow-x: scroll;
+//     padding: 24px;
+//     width: 300px;
+//     scroll-snap-type: x-mandatory;
+//     scroll-padding: 24px;
+//     border-radius: 8px;
+//     gap: 12px;
+// }
 
-.carousel::-webkit-scrollbar {
-    display: none;
-}
+// .carousel::-webkit-scrollbar {
+//     display: none;
+// }
 
-.carousel-item {
-    flex: 0 0 100%;
-    padding: 24px;
-    border-radius: 8px;
-    scroll-snap-align: start;
-}
+// .carousel-item {
+//     flex: 0 0 100%;
+//     padding: 24px;
+//     border-radius: 8px;
+//     scroll-snap-align: start;
+// }
 </style>
