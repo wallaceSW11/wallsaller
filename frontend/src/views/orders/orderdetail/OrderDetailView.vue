@@ -121,13 +121,34 @@
                         />
                     </div>
                     <div class="modal-product-content">
-                        <select-custom
+                        Produtos:
+                        <my-carousel />
+
+                        <!-- <template>
+                        <carousel :items-to-show="1.5">
+                            <slide v-for="slide in 10" :key="slide">
+                                {{ slide }} b
+                            </slide>
+
+                            <template #addons>
+                                <navigation />
+                                <pagination />
+                            </template>
+                        </carousel> -->
+                        <!-- </template> -->
+                        <!-- <div class="carousel">
+                            <div class="carousel-item">Produto 1</div>
+                            <div class="carousel-item">Produto 2</div>
+                            <div class="carousel-item">Produto 3</div>
+                        </div> -->
+
+                        <!-- <select-custom
                             label="Produto"
                             defaultOption="Selecione o produto"
                             :options="avaliableProducts"
                             v-model="product.id"
                             @optionSelected="productSelected"
-                        />
+                        /> -->
 
                         <!-- // ifs da vida -->
 
@@ -200,6 +221,12 @@ import Item from "@/models/Item";
 import Orders from "@/models/Orders";
 import data from "@/services/data.js";
 
+// import "vue3-carousel/dist/carousel.css";
+
+// import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+
+import MyCarousel from "@/components/carousel/MyCarousel.vue";
+
 export default {
     name: "OrderDetailView",
     components: {
@@ -211,6 +238,11 @@ export default {
         CheckboxCustom,
         TextArea,
         InputFile,
+        MyCarousel,
+        // Carousel,
+        // Slide,
+        // Pagination,
+        // Navigation,
     },
     data() {
         return {
@@ -398,5 +430,27 @@ export default {
 
 .modal-product-footer {
     margin: 10px;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: scroll;
+    padding: 24px;
+    width: 300px;
+    scroll-snap-type: x-mandatory;
+    scroll-padding: 24px;
+    border-radius: 8px;
+    gap: 12px;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    padding: 24px;
+    border-radius: 8px;
+    scroll-snap-align: start;
 }
 </style>
