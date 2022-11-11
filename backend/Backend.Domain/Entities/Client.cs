@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace backend.domain.Entities
 {
-    public class Client : EntityBase
+    public class Client : BaseEntity
     {
         public string Name { get; set; }
         public int FoneNumber { get; set; }
