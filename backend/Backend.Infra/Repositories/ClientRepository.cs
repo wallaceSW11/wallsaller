@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Domain.Entities;
 using Backend.Domain.Interfaces;
+using Backend.Domain.Entities;
 
-namespace Backend.Infra
+namespace Backend.Infra.Repositories
 {
-    public class ClientRepository : IRepository<Client>
+    public class ClientRepository : IClientRepository
     {
         private readonly List<Client> _clients;
 
@@ -16,34 +12,42 @@ namespace Backend.Infra
             _clients = new List<Client>();
         }
 
-        public void Insert(T entity)
+        public Task<bool> Insert(Client entity)
         {
             _clients.Add(entity);
+
+            return Task.FromResult(true);
+
+
         }
-        public void Update(T entity)
+        public bool Update(Client entity)
         {
-            var newClient = _clients.Find(entity);
+            var newClient = _clients.Find(c => c.Id == entity.Id);
 
             _clients.Remove(newClient);
 
             _clients.Add(entity);
 
+            return true;
+
         }
-        public void Delete(T entity)
+        public bool Delete(Client entity)
         {
             _clients.Remove(entity);
+
+            return true;
         }
         public bool Exists(int id)
         {
-            return _clients.Find(c => c.id == id);
+            return _clients.Any(c => c.Id == id);
         }
-        public Task<IEnumerable<T>> GetAll()
+        public Task<List<Client>> GetAll()
         {
-            return _clients.FindAll().ToList();
+            return Task.FromResult(_clients);
         }
-        public Task<T> GetById(int id)
+        public Task<Client> GetByName(string name)
         {
-            return _clients.Find(c => c.id == id);
+            return Task.FromResult(_clients.Find(c => c.Name == name));
         }
     }
 }

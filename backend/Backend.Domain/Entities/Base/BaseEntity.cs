@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace backend.domain.Entities.Base
+namespace Backend.Domain.Entities.Base
 {
     public abstract class BaseEntity
     {
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
     }
 
 

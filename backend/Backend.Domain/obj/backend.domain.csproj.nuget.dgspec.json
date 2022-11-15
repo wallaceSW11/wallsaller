@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/wall/dev/git/wallsaller/backend/backend.domain/backend.domain.csproj": {}
+    "/home/wall/dev/git/wallsaller/backend/Backend.Domain/backend.domain.csproj": {}
   },
   "projects": {
-    "/home/wall/dev/git/wallsaller/backend/backend.domain/backend.domain.csproj": {
+    "/home/wall/dev/git/wallsaller/backend/Backend.Domain/backend.domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/wall/dev/git/wallsaller/backend/backend.domain/backend.domain.csproj",
+        "projectUniqueName": "/home/wall/dev/git/wallsaller/backend/Backend.Domain/backend.domain.csproj",
         "projectName": "backend.domain",
-        "projectPath": "/home/wall/dev/git/wallsaller/backend/backend.domain/backend.domain.csproj",
+        "projectPath": "/home/wall/dev/git/wallsaller/backend/Backend.Domain/backend.domain.csproj",
         "packagesPath": "/home/wall/.nuget/packages/",
-        "outputPath": "/home/wall/dev/git/wallsaller/backend/backend.domain/obj/",
+        "outputPath": "/home/wall/dev/git/wallsaller/backend/Backend.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/wall/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -48,9 +54,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

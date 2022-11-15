@@ -1,17 +1,17 @@
 using FluentValidation;
 
-namespace Backend.Domain.Entities
+namespace Backend.Application.Queries.Validators
 {
-    public class ClientValidator : AbstractValidator<Client>
+    public class GetClientByNameQueryValidator : AbstractValidator<GetClientByNameQuery>
     {
-        internal ClientValidator()
+        public GetClientByNameQueryValidator()
         {
             RuleFor(c => c.Name)
               .NotEmpty()
                 .WithMessage("The name must be informed")
               .MaximumLength(100)
                 .WithMessage("The name's maximum length its 100 characters");
-
         }
+
     }
 }

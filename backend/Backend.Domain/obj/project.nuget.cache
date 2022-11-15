@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "PrNOUNfiEkjpJCjyjrmutZgUjoa0FIm3mKXL0EY95ofrh0uoGnmY6iLFmlPdb7OCZCXEhaBvG59MT+rysRlJvA==",
+  "dgSpecHash": "6fWPlWIVj0N6cf+p25Op1107ttXZDAWLTN6vk0bNIV86Q1laMcVH+nZ4VLX1KTvwlLvH99OUveLhZe4xTx9/KQ==",
   "success": true,
-  "projectFilePath": "/home/wall/dev/git/wallsaller/backend/backend.domain/backend.domain.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/wall/dev/git/wallsaller/backend/Backend.Domain/Backend.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/wall/.nuget/packages/fluentvalidation/11.3.0/fluentvalidation.11.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
