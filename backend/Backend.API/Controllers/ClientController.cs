@@ -1,5 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Backend.Application.Commands;
+using Backend.Application.Queries;
+using System.Threading.Tasks;
 
 namespace backend.API.src.Controllers
 {
@@ -14,11 +17,33 @@ namespace backend.API.src.Controllers
             _mediator = mediator;
         }
 
+        // Commands
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] InsertClientCommand command)
+        {
+            return await Result(command);
+        }
+
 
         [HttpGet]
-        public ActionResult<string> Get()
+        [Route("name")]
+        public async Task<IActionResult> Get([FromQuery] GetClientByNameQuery query)
         {
-            return Ok("Wall");
+            return await Result(query);
+        }
+
+        private async Task<IActionResult> Result(IBaseRequest request)
+        {
+            try
+            {
+                var retorno = await _mediator.Send(request);
+
+                return retorno == null ? NotFound("Registro não encontrado") : Ok(retorno);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

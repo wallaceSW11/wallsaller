@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6fWPlWIVj0N6cf+p25Op1107ttXZDAWLTN6vk0bNIV86Q1laMcVH+nZ4VLX1KTvwlLvH99OUveLhZe4xTx9/KQ==",
+  "dgSpecHash": "hqaaFii4cdPdPP+9ELTPHy/dLROBNk94X9l1eXv0rOnFcRdDCURxJyoitqMhLurVRKaW4sV3J8ws7A6Pgm0uAg==",
   "success": true,
   "projectFilePath": "/home/wall/dev/git/wallsaller/backend/Backend.Domain/Backend.Domain.csproj",
   "expectedPackageFiles": [
-    "/home/wall/.nuget/packages/fluentvalidation/11.3.0/fluentvalidation.11.3.0.nupkg.sha512"
+    "/home/wall/.nuget/packages/fluentvalidation/11.3.0/fluentvalidation.11.3.0.nupkg.sha512",
+    "/home/wall/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.3.0/fluentvalidation.dependencyinjectionextensions.11.3.0.nupkg.sha512",
+    "/home/wall/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.0/microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
   ],
   "logs": []
 }
