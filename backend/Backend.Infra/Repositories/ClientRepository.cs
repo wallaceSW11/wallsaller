@@ -31,8 +31,9 @@ namespace Backend.Infra.Repositories
             return true;
 
         }
-        public bool Delete(Client entity)
+        public bool Delete(int id)
         {
+            var entity = _clients.Find(c => c.Id == id);
             _clients.Remove(entity);
 
             return true;

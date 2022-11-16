@@ -24,12 +24,25 @@ namespace backend.API.src.Controllers
             return await Result(command);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateClientCommand command)
+        {
+            return await Result(command);
+        }
 
         [HttpGet]
         [Route("name")]
         public async Task<IActionResult> Get([FromQuery] GetClientByNameQuery query)
         {
             return await Result(query);
+        }
+
+        [HttpDelete("{ra}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var command = new DeleteClientCommand() { Id = int.Parse(id) };
+
+            return await Result(command);
         }
 
         private async Task<IActionResult> Result(IBaseRequest request)
