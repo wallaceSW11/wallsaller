@@ -15,7 +15,7 @@ namespace Backend.Application.Service
             _repository = repository;
         }
 
-        public async Task<bool> Insert(InsertClientCommand command)
+        public async Task<ClientViewModel> Insert(InsertClientCommand command)
         {
             command.Validate(out var validationResult);
 
@@ -26,7 +26,11 @@ namespace Backend.Application.Service
 
             var entity = ClientMapper.ToEntity(command);
 
-            return await _repository.Insert(entity);
+            var clientCreated = new ClientViewModel() { Name = entity.Name, PhoneNumber = entity.PhoneNumber };
+
+            await _repository.Insert(entity);
+
+            return clientCreated;
         }
 
         public bool Update(UpdateClientCommand command)

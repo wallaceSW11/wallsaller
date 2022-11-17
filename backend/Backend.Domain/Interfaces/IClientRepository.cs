@@ -4,7 +4,7 @@ namespace Backend.Domain.Interfaces
 {
     public interface IClientRepository
     {
-        Task<bool> Insert(Client entity);
+        Task<Client> Insert(Client entity);
         bool Update(Client entity);
         bool Delete(int id);
         bool Exists(int id);

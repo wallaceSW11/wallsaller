@@ -12,11 +12,11 @@ namespace Backend.Infra.Repositories
             _clients = new List<Client>();
         }
 
-        public Task<bool> Insert(Client entity)
+        public Task<Client> Insert(Client entity)
         {
             _clients.Add(entity);
 
-            return Task.FromResult(true);
+            return Task.FromResult(entity);
 
 
         }

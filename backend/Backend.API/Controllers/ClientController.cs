@@ -30,10 +30,11 @@ namespace backend.API.src.Controllers
             return await Result(command);
         }
 
-        [HttpGet]
-        [Route("name")]
-        public async Task<IActionResult> Get([FromQuery] GetClientByNameQuery query)
+        [HttpGet("getbyname/{name}")]
+        public async Task<IActionResult> Get(string name)
         {
+            var query = new GetClientByNameQuery() { Name = name };
+
             return await Result(query);
         }
 
@@ -51,7 +52,7 @@ namespace backend.API.src.Controllers
             {
                 var retorno = await _mediator.Send(request);
 
-                return retorno == null ? NotFound("Registro não encontrado") : Ok(retorno);
+                return retorno == null ? NotFound("Register didn't found.") : Ok(retorno);
             }
             catch (Exception e)
             {
