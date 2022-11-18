@@ -1,21 +1,21 @@
 using Backend.Domain.Interfaces;
-using Backend.Application.Commands;
+using Backend.Application.Commands.Customer;
 using Backend.Application.Mappings;
-using Backend.Application.Queries;
+using Backend.Application.Queries.Customer;
 using Backend.Application.Queries.ViewModel;
 
 namespace Backend.Application.Service
 {
-    public class ClientService
+    public class CustomerService
     {
-        private readonly IClientRepository _repository;
+        private readonly ICustomerRepository _repository;
 
-        public ClientService(IClientRepository repository)
+        public CustomerService(ICustomerRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<ClientViewModel> Insert(InsertClientCommand command)
+        public async Task<CustomerViewModel> Insert(InsertCustomerCommand command)
         {
             command.Validate(out var validationResult);
 
@@ -24,16 +24,21 @@ namespace Backend.Application.Service
                 throw new Exception(validationResult.Errors.ToString());
             }
 
-            var entity = ClientMapper.ToEntity(command);
+            var entity = CustomerMapper.ToEntity(command);
 
-            var clientCreated = new ClientViewModel() { Name = entity.Name, PhoneNumber = entity.PhoneNumber };
+            var CustomerCreated = await _repository.Insert(entity);
 
-            await _repository.Insert(entity);
-
-            return clientCreated;
+            return new CustomerViewModel()
+            {
+                Id = CustomerCreated.Id,
+                Name = CustomerCreated.Name,
+                Identity = CustomerCreated.Identity,
+                Email = CustomerCreated.Email,
+                PhoneNumber = CustomerCreated.PhoneNumber
+            };
         }
 
-        public bool Update(UpdateClientCommand command)
+        public bool Update(UpdateCustomerCommand command)
         {
             command.Validate(out var validationResult);
 
@@ -55,7 +60,7 @@ namespace Backend.Application.Service
             return _repository.Update(entity);
         }
 
-        public bool Delete(DeleteClientCommand command)
+        public bool Delete(DeleteCustomerCommand command)
         {
             command.Validate(out var validationResult);
 
@@ -68,7 +73,7 @@ namespace Backend.Application.Service
         }
 
 
-        public async Task<ClientViewModel> GetByName(GetClientByNameQuery query)
+        public async Task<CustomerViewModel> GetByName(GetCustomerByNameQuery query)
         {
             query.Validate(out var validationResult);
 
@@ -77,9 +82,9 @@ namespace Backend.Application.Service
                 throw new Exception(validationResult.Errors.ToString());
             }
 
-            var client = await _repository.GetByName(query.Name);
+            var Customer = await _repository.GetByName(query.Name);
 
-            return ClientMapper.ToResponse(client);
+            return CustomerMapper.ToResponse(Customer);
         }
 
 

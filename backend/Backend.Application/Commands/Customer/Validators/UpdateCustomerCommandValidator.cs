@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Backend.Application.Commands.Validators
+namespace Backend.Application.Commands.Customer.Validators
 {
-    public class InsertClientCommandValidator : AbstractValidator<InsertClientCommand>
+    public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
     {
-        public InsertClientCommandValidator()
+        public UpdateCustomerCommandValidator()
         {
             RuleFor(c => c.Name)
               .NotEmpty()

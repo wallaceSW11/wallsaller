@@ -13,8 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IClientRepository, ClientRepository>();
-builder.Services.AddSingleton<ClientService>();
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<CustomerService>();
 builder.Services.AddMediatR(AppDomain.CurrentDomain.Load("Backend.Application"));
 
 

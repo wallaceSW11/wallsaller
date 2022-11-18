@@ -1,31 +1,31 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Backend.Application.Commands;
-using Backend.Application.Queries;
+using Backend.Application.Commands.Customer;
+using Backend.Application.Queries.Customer;
 using System.Threading.Tasks;
 
 namespace backend.API.src.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         public readonly IMediator _mediator;
 
-        public ClientController(IMediator mediator)
+        public CustomerController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         // Commands
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] InsertClientCommand command)
+        public async Task<IActionResult> Post([FromBody] InsertCustomerCommand command)
         {
             return await Result(command);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateClientCommand command)
+        public async Task<IActionResult> Put([FromBody] UpdateCustomerCommand command)
         {
             return await Result(command);
         }
@@ -33,7 +33,7 @@ namespace backend.API.src.Controllers
         [HttpGet("getbyname/{name}")]
         public async Task<IActionResult> Get(string name)
         {
-            var query = new GetClientByNameQuery() { Name = name };
+            var query = new GetCustomerByNameQuery() { Name = name };
 
             return await Result(query);
         }
@@ -41,7 +41,7 @@ namespace backend.API.src.Controllers
         [HttpDelete("{ra}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var command = new DeleteClientCommand() { Id = int.Parse(id) };
+            var command = new DeleteCustomerCommand() { Id = int.Parse(id) };
 
             return await Result(command);
         }

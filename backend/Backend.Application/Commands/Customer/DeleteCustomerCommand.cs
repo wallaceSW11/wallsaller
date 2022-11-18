@@ -1,10 +1,10 @@
 using FluentValidation.Results;
 using MediatR;
-using Backend.Application.Commands.Validators;
+using Backend.Application.Commands.Customer.Validators;
 
-namespace Backend.Application.Commands
+namespace Backend.Application.Commands.Customer
 {
-    public class DeleteClientCommand : IRequest<bool>
+    public class DeleteCustomerCommand : IRequest<bool>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,7 +12,7 @@ namespace Backend.Application.Commands
 
         public void Validate(out ValidationResult validationResult)
         {
-            validationResult = new DeleteClientCommandValidator().Validate(this);
+            validationResult = new DeleteCustomerCommandValidator().Validate(this);
         }
     }
 }

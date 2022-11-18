@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Backend.Application.Commands.Validators
+namespace Backend.Application.Commands.Customer.Validators
 {
-    public class DeleteClientCommandValidator : AbstractValidator<DeleteClientCommand>
+    public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
     {
-        public DeleteClientCommandValidator()
+        public DeleteCustomerCommandValidator()
         {
             RuleFor(c => c.Name)
               .NotEmpty()

@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Backend.Application.Queries.Validators
+namespace Backend.Application.Queries.Customer.Validators
 {
-    public class GetClientByNameQueryValidator : AbstractValidator<GetClientByNameQuery>
+    public class GetCustomerByNameQueryValidator : AbstractValidator<GetCustomerByNameQuery>
     {
-        public GetClientByNameQueryValidator()
+        public GetCustomerByNameQueryValidator()
         {
             RuleFor(c => c.Name)
               .NotEmpty()
