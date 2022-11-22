@@ -5,7 +5,7 @@ using Backend.Application.Queries.ViewModel;
 
 namespace Backend.Application.Commands.Customer
 {
-    public class InsertCustomerCommand : IRequest<CustomerViewModel>
+    public class InsertCustomerCommand : IRequest<bool>
     {
         public string Name { get; set; }
         public string Identity { get; set; }
