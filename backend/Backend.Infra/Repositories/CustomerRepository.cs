@@ -45,10 +45,6 @@ namespace Backend.Infra.Repositories
         {
             return _Customers.Any(c => c.Id == id);
         }
-        public Task<List<Customer>> GetAll()
-        {
-            return Task.FromResult(_Customers);
-        }
         public Task<Customer> GetByName(string name)
         {
             return Task.FromResult(_Customers.Find(c => c.Name == name));
@@ -57,6 +53,11 @@ namespace Backend.Infra.Repositories
         public Task<Customer> GetById(int id)
         {
             return Task.FromResult(_Customers.Find(c => c.Id == id));
+        }
+
+        public Task<IEnumerable<Customer>> GetAll()
+        {
+            return Task.FromResult(_Customers.AsEnumerable());
         }
     }
 }

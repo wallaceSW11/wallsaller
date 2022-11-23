@@ -3,6 +3,7 @@ using Backend.Application.Commands.Customer;
 using Backend.Application.Mappings;
 using Backend.Application.Queries.Customer;
 using Backend.Application.Queries.ViewModel;
+using Backend.Domain.Entities;
 using Backend.Infra.Exceptions;
 
 namespace Backend.Application.Service
@@ -92,6 +93,13 @@ namespace Backend.Application.Service
             var Customer = await _repository.GetById(int.Parse(query.Id));
 
             return CustomerMapper.ToResponse(Customer);
+        }
+
+        public Task<IEnumerable<Customer>> GetAll()
+        {
+            var customers = _repository.GetAll();
+
+            return customers;
         }
 
 

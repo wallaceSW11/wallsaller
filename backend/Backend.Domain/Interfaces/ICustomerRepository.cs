@@ -8,7 +8,7 @@ namespace Backend.Domain.Interfaces
         bool Update(Customer entity);
         bool Delete(int id);
         bool Exists(int id);
-        Task<List<Customer>> GetAll();
+        Task<IEnumerable<Customer>> GetAll();
         Task<Customer> GetByName(string name);
         Task<Customer> GetById(int id);
 

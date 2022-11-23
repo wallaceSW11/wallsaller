@@ -70,6 +70,14 @@ namespace backend.API.src.Controllers
             return await Result(query);
         }
 
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAall()
+        {
+            var query = new GetCustomers();
+
+            return await Result(query);
+        }
+
 
     }
 }
