@@ -53,5 +53,10 @@ namespace Backend.Infra.Repositories
         {
             return Task.FromResult(_Customers.Find(c => c.Name == name));
         }
+
+        public Task<Customer> GetById(int id)
+        {
+            return Task.FromResult(_Customers.Find(c => c.Id == id));
+        }
     }
 }

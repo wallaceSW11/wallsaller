@@ -10,6 +10,7 @@ namespace Backend.Domain.Interfaces
         bool Exists(int id);
         Task<List<Customer>> GetAll();
         Task<Customer> GetByName(string name);
+        Task<Customer> GetById(int id);
 
     }
 }

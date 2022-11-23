@@ -17,35 +17,6 @@ namespace backend.API.src.Controllers
             _mediator = mediator;
         }
 
-        // Commands
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] InsertCustomerCommand command)
-        {
-            return await Result(command);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateCustomerCommand command)
-        {
-            return await Result(command);
-        }
-
-        [HttpGet("getbyname/{name}")]
-        public async Task<IActionResult> Get(string name)
-        {
-            var query = new GetCustomerByNameQuery() { Name = name };
-
-            return await Result(query);
-        }
-
-        [HttpDelete("{ra}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var command = new DeleteCustomerCommand() { Id = int.Parse(id) };
-
-            return await Result(command);
-        }
-
         private async Task<IActionResult> Result(IBaseRequest request)
         {
             try
@@ -59,5 +30,46 @@ namespace backend.API.src.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        // Commands
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] InsertCustomerCommand command)
+        {
+            return await Result(command);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateCustomerCommand command)
+        {
+            return await Result(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var command = new DeleteCustomerCommand() { Id = int.Parse(id) };
+
+            return await Result(command);
+        }
+
+
+        // queries
+        [HttpGet("getbyname/{name}")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var query = new GetCustomerByNameQuery() { Name = name };
+
+            return await Result(query);
+        }
+
+        [HttpGet("getbyid/{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var query = new GetCustomerByIdQuery() { Id = id.ToString() };
+
+            return await Result(query);
+        }
+
+
     }
 }

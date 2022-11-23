@@ -11,6 +11,12 @@ namespace Backend.Application.Commands.Customer.Validators
                 .WithMessage("The name must be informed")
               .MaximumLength(100)
                 .WithMessage("The name's maximum length its 100 characters");
+
+            RuleFor(c => c.Email)
+              .NotEmpty()
+                .WithMessage("The email must be informed")
+              .MaximumLength(100)
+                .WithMessage("The name's maximum length its 100 characters");
         }
 
     }

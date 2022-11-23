@@ -15,9 +15,14 @@ namespace Backend.Application.Handlers.Customer
             _service = service;
         }
 
-        public async Task<CustomerViewModel> Handle(GetCustomerByNameQuery request, CancellationToken cancellationToken)
+        public async Task<CustomerViewModel> Handle(GetCustomerByNameQuery query, CancellationToken cancellationToken)
         {
-            return await _service.GetByName(request);
+            return await _service.GetByName(query);
+        }
+
+        public async Task<CustomerViewModel> Handle(GetCustomerByIdQuery query, CancellationToken cancellationToken)
+        {
+            return await _service.GetById(query);
         }
     }
 }

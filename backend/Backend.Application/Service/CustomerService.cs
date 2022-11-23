@@ -3,6 +3,7 @@ using Backend.Application.Commands.Customer;
 using Backend.Application.Mappings;
 using Backend.Application.Queries.Customer;
 using Backend.Application.Queries.ViewModel;
+using Backend.Infra.Exceptions;
 
 namespace Backend.Application.Service
 {
@@ -21,7 +22,7 @@ namespace Backend.Application.Service
 
             if (!validationResult.IsValid)
             {
-                throw new Exception(validationResult.Errors.ToString());
+                throw new ValidationDataException(validationResult.Errors);
             }
 
             var entity = CustomerMapper.ToEntity(command);
@@ -36,14 +37,14 @@ namespace Backend.Application.Service
 
             if (!validationResult.IsValid)
             {
-                throw new Exception(validationResult.Errors.ToString());
+                throw new ValidationDataException(validationResult.Errors);
             }
 
-            var entity = _repository.GetByName(command.Name).Result;
+            var entity = _repository.GetById(command.Id).Result;
 
             if (entity == null)
             {
-                throw new Exception($"Customer didn't found: {command.Name}");
+                throw new ValidationDataException($"Customer didn't found: {command.Id}");
             }
 
             entity.Name = command.Name;
@@ -58,7 +59,7 @@ namespace Backend.Application.Service
 
             if (!validationResult.IsValid)
             {
-                throw new Exception(validationResult.Errors.ToString());
+                throw new ValidationDataException(validationResult.Errors);
             }
 
             return _repository.Delete(command.Id);
@@ -71,10 +72,24 @@ namespace Backend.Application.Service
 
             if (!validationResult.IsValid)
             {
-                throw new Exception(validationResult.Errors.ToString());
+                throw new ValidationDataException(validationResult.Errors);
             }
 
             var Customer = await _repository.GetByName(query.Name);
+
+            return CustomerMapper.ToResponse(Customer);
+        }
+
+        public async Task<CustomerViewModel> GetById(GetCustomerByIdQuery query)
+        {
+            query.Validate(out var validationResult);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationDataException(validationResult.Errors);
+            }
+
+            var Customer = await _repository.GetById(int.Parse(query.Id));
 
             return CustomerMapper.ToResponse(Customer);
         }

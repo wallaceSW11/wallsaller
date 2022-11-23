@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "MkScrM0zqvJZcdsDTfNaB+RA3wmoCBwOd7+IHlMJf5qmrxL72874HcoXvlm5und9vbcm1N/oNN2VOrcr9mXcpA==",
+  "dgSpecHash": "Q6xNGDVk3kq6125IPU+D3fLxqn+7gTFxGbjyq3AwKHPRmhAVec1MoZHaCdviANSU5P//2Cwv6kImmArau0zU3w==",
   "success": true,
   "projectFilePath": "/home/wall/dev/git/wallsaller/backend/Backend.Infra/Backend.Infra.csproj",
   "expectedPackageFiles": [
     "/home/wall/.nuget/packages/fluentvalidation/11.3.0/fluentvalidation.11.3.0.nupkg.sha512",
     "/home/wall/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.3.0/fluentvalidation.dependencyinjectionextensions.11.3.0.nupkg.sha512",
-    "/home/wall/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.0/microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+    "/home/wall/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.0/microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
+    "/home/wall/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }
