@@ -6,11 +6,9 @@ namespace Backend.Application.Commands.Customer.Validators
     {
         public DeleteCustomerCommandValidator()
         {
-            RuleFor(c => c.Name)
+            RuleFor(c => c.Id)
               .NotEmpty()
-                .WithMessage("The name must be informed")
-              .MaximumLength(100)
-                .WithMessage("The name's maximum length its 100 characters");
+                .WithMessage("The id must be informed");
         }
 
     }

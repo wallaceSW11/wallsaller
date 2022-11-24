@@ -63,6 +63,15 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
+            var entity = _repository.GetById(command.Id).Result;
+
+            if (entity == null)
+            {
+                throw new ValidationDataException($"Customer didn't found: {command.Id}");
+            }
+
+
+
             return _repository.Delete(command.Id);
         }
 

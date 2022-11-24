@@ -47,7 +47,7 @@ namespace backend.API.src.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var command = new DeleteCustomerCommand() { Id = int.Parse(id) };
+            var command = new DeleteCustomerCommand() { Id = 0 };
 
             return await Result(command);
         }
