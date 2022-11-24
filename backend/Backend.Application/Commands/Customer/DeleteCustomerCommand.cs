@@ -6,7 +6,7 @@ namespace Backend.Application.Commands.Customer
 {
     public class DeleteCustomerCommand : IRequest<bool>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public void Validate(out ValidationResult validationResult)
         {

@@ -4,6 +4,8 @@ using Backend.Application.Commands.Customer;
 using Backend.Application.Queries.Customer;
 using System.Threading.Tasks;
 
+using Backend.Infra.Exceptions;
+
 namespace backend.API.src.Controllers
 {
     [ApiController]
@@ -25,10 +27,18 @@ namespace backend.API.src.Controllers
 
                 return retorno == null ? NotFound("Register didn't found.") : Ok(retorno);
             }
+
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
+
+
         }
 
         // Commands
@@ -47,7 +57,7 @@ namespace backend.API.src.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var command = new DeleteCustomerCommand() { Id = 0 };
+            var command = new DeleteCustomerCommand() { Id = id };
 
             return await Result(command);
         }
@@ -65,7 +75,7 @@ namespace backend.API.src.Controllers
         [HttpGet("getbyid/{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var query = new GetCustomerByIdQuery() { Id = id.ToString() };
+            var query = new GetCustomerByIdQuery() { Id = id };
 
             return await Result(query);
         }

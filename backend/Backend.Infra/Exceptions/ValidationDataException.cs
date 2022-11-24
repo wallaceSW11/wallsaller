@@ -23,10 +23,10 @@ namespace Backend.Infra.Exceptions
 
         private static string BuildMessage(string message)
         {
-            var errors = new List<ValidationDataExceptionMessage>();
-            errors.Add(new ValidationDataExceptionMessage() { Field = string.Empty, ErrorMessage = message });
+            // var errors = new List<ValidationDataExceptionMessage>();
+            // errors.Add(new ValidationDataExceptionMessage() { ErrorMessage = message });
 
-            return JsonConvert.SerializeObject(errors);
+            return JsonConvert.SerializeObject(message);
         }
     }
 

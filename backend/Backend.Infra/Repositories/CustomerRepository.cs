@@ -23,7 +23,7 @@ namespace Backend.Infra.Repositories
 
 
         }
-        public bool Update(Customer entity)
+        public Task<bool> Update(Customer entity)
         {
             var newCustomer = _Customers.Find(c => c.Id == entity.Id);
 
@@ -31,7 +31,7 @@ namespace Backend.Infra.Repositories
 
             _Customers.Add(entity);
 
-            return true;
+            return Task.FromResult(true);
 
         }
         public bool Delete(int id)
@@ -47,6 +47,10 @@ namespace Backend.Infra.Repositories
         public bool Exists(int id)
         {
             return _Customers.Any(c => c.Id == id);
+        }
+        public bool Exists(string identity)
+        {
+            return _Customers.Any(c => c.Identity == identity);
         }
         public Task<Customer> GetByName(string name)
         {

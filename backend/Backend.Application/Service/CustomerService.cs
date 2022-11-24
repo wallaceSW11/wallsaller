@@ -26,13 +26,18 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
+            if (_repository.Exists(command.Identity))
+            {
+                throw new ValidationDataException($"Customer already registered: {command.Identity}");
+            }
+
             var entity = CustomerMapper.ToEntity(command);
 
             return _repository.Insert(entity);
 
         }
 
-        public bool Update(UpdateCustomerCommand command)
+        public Task<bool> Update(UpdateCustomerCommand command)
         {
             command.Validate(out var validationResult);
 
@@ -41,17 +46,12 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
-            var entity = _repository.GetById(command.Id).Result;
-
-            if (entity == null)
+            if (!_repository.Exists(command.Id))
             {
-                throw new ValidationDataException($"Customer didn't found: {command.Id}");
+                throw new NotFoundException($"Customer didn't found: {command.Id}");
             }
 
-            entity.Name = command.Name;
-            entity.PhoneNumber = command.PhoneNumber;
-
-            return _repository.Update(entity);
+            return _repository.Update(CustomerMapper.ToEntity(command));
         }
 
         public bool Delete(DeleteCustomerCommand command)
@@ -63,16 +63,14 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
-            var entity = _repository.GetById(command.Id).Result;
+            var entity = _repository.GetById(int.Parse(command.Id)).Result;
 
-            if (entity == null)
+            if (!_repository.Exists(command.Id))
             {
-                throw new ValidationDataException($"Customer didn't found: {command.Id}");
+                throw new NotFoundException($"Customer didn't found: {command.Id}");
             }
 
-
-
-            return _repository.Delete(command.Id);
+            return _repository.Delete(int.Parse(command.Id));
         }
 
 

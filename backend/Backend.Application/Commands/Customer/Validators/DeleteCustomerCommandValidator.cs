@@ -9,6 +9,7 @@ namespace Backend.Application.Commands.Customer.Validators
             RuleFor(c => c.Id)
               .NotEmpty()
                 .WithMessage("The id must be informed");
+
         }
 
     }

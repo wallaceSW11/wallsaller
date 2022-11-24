@@ -15,6 +15,15 @@ namespace Backend.Application.Mappings
             PhoneNumber = command.PhoneNumber
         };
 
+        public static Customer ToEntity(UpdateCustomerCommand command) => new()
+        {
+            Name = command.Name,
+            Identity = command.Identity,
+            Email = command.Email,
+            BirthDate = command.BirthDate,
+            PhoneNumber = command.PhoneNumber
+        };
+
         public static CustomerViewModel ToResponse(Customer entity) => entity == null ? null : new()
         {
             Id = entity.Id,

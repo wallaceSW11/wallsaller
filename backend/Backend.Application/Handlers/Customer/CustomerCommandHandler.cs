@@ -25,7 +25,7 @@ namespace Backend.Application.Handlers.Customer
 
         public Task<bool> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
-            return Task.Run(() => _service.Update(request));
+            return _service.Update(request);
         }
 
         public Task<bool> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
