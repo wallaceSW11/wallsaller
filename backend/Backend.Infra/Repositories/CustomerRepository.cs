@@ -12,14 +12,14 @@ namespace Backend.Infra.Repositories
             _Customers = new List<Customer>();
         }
 
-        public Task<bool> Insert(Customer entity)
+        public Task<Customer> Insert(Customer entity)
         {
             var count = _Customers.Count();
 
             entity.Id = _Customers.Count;
             _Customers.Add(entity);
 
-            return Task.FromResult(count != _Customers.Count());
+            return Task.FromResult(entity);
 
 
         }

@@ -1,3 +1,3 @@
 {
-    "dotnet-test-explorer.testProjectPath": "**/Backend.Tests.csproj"
+    "dotnet-test-explorer.testProjectPath": "**/*"
 }

@@ -17,7 +17,7 @@ namespace Backend.Application.Service
             _repository = repository;
         }
 
-        public Task<bool> Insert(InsertCustomerCommand command)
+        public Task<Customer> Insert(InsertCustomerCommand command)
         {
             command.Validate(out var validationResult);
 

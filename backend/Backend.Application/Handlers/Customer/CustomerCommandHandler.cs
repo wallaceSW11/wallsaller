@@ -1,12 +1,13 @@
 using MediatR;
 using Backend.Application.Commands.Customer;
 using Backend.Application.Service;
+using Backend.Domain.Entities;
 
 namespace Backend.Application.Handlers.Customer
 {
 
     public class CustomerCommandHandler :
-      IRequestHandler<InsertCustomerCommand, bool>,
+      IRequestHandler<InsertCustomerCommand, Backend.Domain.Entities.Customer>,
       IRequestHandler<UpdateCustomerCommand, bool>,
       IRequestHandler<DeleteCustomerCommand, bool>
 
@@ -18,7 +19,7 @@ namespace Backend.Application.Handlers.Customer
             _service = service;
         }
 
-        public Task<bool> Handle(InsertCustomerCommand command, CancellationToken cancellationToken)
+        public Task<Backend.Domain.Entities.Customer> Handle(InsertCustomerCommand command, CancellationToken cancellationToken)
         {
             return _service.Insert(command);
         }

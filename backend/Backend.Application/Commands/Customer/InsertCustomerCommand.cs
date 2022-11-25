@@ -1,11 +1,11 @@
 using FluentValidation.Results;
 using MediatR;
 using Backend.Application.Commands.Customer.Validators;
-using Backend.Application.Queries.ViewModel;
+using Backend.Domain.Entities;
 
 namespace Backend.Application.Commands.Customer
 {
-    public class InsertCustomerCommand : IRequest<bool>
+    public class InsertCustomerCommand : IRequest<Backend.Domain.Entities.Customer>
     {
         public string Name { get; set; }
         public string Identity { get; set; }

@@ -22,12 +22,12 @@ public class CustomerServiceTest
         _service = new CustomerService(_repository);
     }
 
-    private Task<bool> InsertCustomer()
+    private Task<Customer> InsertCustomer(string? identity = "111222333444")
     {
         var command = new InsertCustomerCommand()
         {
             Name = "wallzin",
-            Identity = "111222333444",
+            Identity = identity,
             Email = "wall@wall.com.br",
             BirthDate = Convert.ToDateTime("2000-11-18"),
             PhoneNumber = "22223333"
@@ -40,7 +40,7 @@ public class CustomerServiceTest
     [Fact]
     public void Should_Insert_Customer()
     {
-        Assert.True(InsertCustomer().Result);
+        Assert.IsType<Customer>(InsertCustomer().Result);
     }
 
     [Fact]
@@ -68,5 +68,87 @@ public class CustomerServiceTest
         var exception = Assert.ThrowsAsync<ValidationDataException>(() => InsertCustomer()).Result;
 
         Assert.Contains("Customer already registered", exception.Message);
+    }
+
+    [Fact]
+    public void Should_Get_Customer_By_Id()
+    {
+        var customer = InsertCustomer().Result;
+
+        var query = new GetCustomerByIdQuery() { Id = customer.Id.ToString() };
+
+        var customerFound = _service.GetById(query).Result;
+
+        Assert.NotNull(customerFound);
+        Assert.Equal(customer.Id, customerFound.Id);
+    }
+
+    [Fact]
+    public void Should_Get_Customer_By_Name()
+    {
+        var customer = InsertCustomer().Result;
+
+        var query = new GetCustomerByNameQuery() { Name = customer.Name };
+
+        var customerFound = _service.GetByName(query).Result;
+
+        Assert.NotNull(customerFound);
+        Assert.Equal(customer.Name, customerFound.Name);
+    }
+
+    [Fact]
+    public void Should_Throw_Exception_Get_Customer_By_Id_Not_Found()
+    {
+        var query = new GetCustomerByIdQuery() { Id = "999" };
+
+        var customerFound = _service.GetById(query).Result;
+
+        Assert.Null(customerFound);
+    }
+
+    [Fact]
+    public void Should_Throw_Exception_Get_Customer_By_Name_Not_Found()
+    {
+        var query = new GetCustomerByNameQuery() { Name = "wa" };
+
+        var customerFound = _service.GetByName(query).Result;
+
+        Assert.Null(customerFound);
+    }
+
+    [Fact]
+    public void Should_Get_All_Customers()
+    {
+        InsertCustomer("111111111");
+        InsertCustomer("222222222");
+        InsertCustomer("333333333");
+
+        var customers = _service.GetAll().Result;
+
+        Assert.NotNull(customers);
+    }
+
+    [Fact]
+    public void Should_Update_Customer()
+    {
+        var newName = "Customer updated";
+        var customer = InsertCustomer().Result;
+
+        var command = new UpdateCustomerCommand()
+        {
+            Id = customer.Id,
+            Name = newName,
+            Identity = customer.Identity,
+            Email = customer.Email
+        };
+
+        _service.Update(command);
+
+        var query = new GetCustomerByIdQuery() { Id = customer.Id.ToString() };
+
+        var customerFound = _service.GetById(query).Result;
+
+        Assert.Equal(newName, customerFound.Name);
+
     }
 }
