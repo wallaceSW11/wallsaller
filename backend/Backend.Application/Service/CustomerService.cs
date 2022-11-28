@@ -26,7 +26,7 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
-            if (_repository.Exists(command.Identity))
+            if (_repository.ExistsIdentity(command.Identity))
             {
                 throw new ValidationDataException($"Customer already registered: {command.Identity}");
             }
@@ -46,9 +46,9 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
-            if (!_repository.Exists(command.Id))
+            if (!_repository.Exists(command.Id.ToString()))
             {
-                throw new NotFoundException($"Customer didn't found: {command.Id}");
+                throw new NotFoundException($"Customer did not found: {command.Id}");
             }
 
             return _repository.Update(CustomerMapper.ToEntity(command));
@@ -63,11 +63,9 @@ namespace Backend.Application.Service
                 throw new ValidationDataException(validationResult.Errors);
             }
 
-            var entity = _repository.GetById(int.Parse(command.Id)).Result;
-
             if (!_repository.Exists(command.Id))
             {
-                throw new NotFoundException($"Customer didn't found: {command.Id}");
+                throw new NotFoundException($"Customer did not found: {command.Id}");
             }
 
             return _repository.Delete(int.Parse(command.Id));

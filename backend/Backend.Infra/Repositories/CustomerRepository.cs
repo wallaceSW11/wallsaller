@@ -44,11 +44,12 @@ namespace Backend.Infra.Repositories
 
             return true;
         }
-        public bool Exists(int id)
+        public bool Exists(string id)
         {
-            return _Customers.Any(c => c.Id == id);
+            return _Customers.Any(c => c.Id == int.Parse(id));
         }
-        public bool Exists(string identity)
+
+        public bool ExistsIdentity(string identity)
         {
             return _Customers.Any(c => c.Identity == identity);
         }

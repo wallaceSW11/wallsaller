@@ -44,7 +44,7 @@ public class CustomerServiceTest
     }
 
     [Fact]
-    public void Should_Throw_Exception_To_Insert_Customer()
+    public void Should_Throw_Exception_To_Insert_Customer_Without_Fields()
     {
         var command = new InsertCustomerCommand()
         {
@@ -150,5 +150,53 @@ public class CustomerServiceTest
 
         Assert.Equal(newName, customerFound.Name);
 
+    }
+
+    [Fact]
+    public void Should_Throw_Exception_Update_Customer_Without_Fields()
+    {
+        var customer = InsertCustomer();
+
+        var command = new UpdateCustomerCommand()
+        {
+            Id = customer.Id,
+            BirthDate = Convert.ToDateTime("2000-11-18"),
+            PhoneNumber = "22223333"
+        };
+
+        var exception = Assert.ThrowsAsync<ValidationDataException>(() => _service.Update(command)).Result;
+
+        Assert.Contains("The name is required", exception.Message);
+        Assert.Contains("The identity is required", exception.Message);
+        Assert.Contains("The email is required", exception.Message);
+    }
+
+    [Fact]
+    public void Should_Throw_Exception_Update_Customer_Not_Found()
+    {
+
+        var command = new UpdateCustomerCommand()
+        {
+            Id = 9999,
+            Name = "wall",
+            Identity = "1212121211",
+            Email = "wall@wall.com",
+            BirthDate = Convert.ToDateTime("2000-11-18"),
+            PhoneNumber = "22223333"
+        };
+
+        var exception = Assert.ThrowsAsync<NotFoundException>(() => _service.Update(command)).Result;
+
+        Assert.Contains("did not found", exception.Message);
+    }
+
+    [Fact]
+    public void Should_Delete_Customer()
+    {
+        var customer = InsertCustomer("11222111222").Result;
+
+        var command = new DeleteCustomerCommand() { Id = customer.Id.ToString() };
+
+        Assert.True(_service.Delete(command));
     }
 }
